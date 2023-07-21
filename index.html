@@ -24,17 +24,28 @@
         projectId,
         // your application information
         metadata: {
-          name: "Web3Modal",
-          description: "Web3Modal",
-          url: "web3modal.com",
-          icons: [
-            "https://walletconnect.com/_next/static/media/logo_mark.84dd8525.svg",
-          ],
+          name: "Konio Test Dapp",
+          description: "A dapp to test WalletConnect Konio integration",
+          url: "dapp.konio.io",
+          icons: ["https://dapp.konio.io/assets/logo.png"],
         },
         modalOptions: {
-          explorerRecommendedWalletIds: "NONE",
+          explorerRecommendedWalletIds: 'NONE',
           enableExplorer: false,
-        },
+          walletImages: {
+            konio: 'https://dapp.konio.io/assets/logo.png'
+          },
+          mobileWallets: [
+            {
+              id: 'konio',
+              name: 'Konio',
+              links: {
+                native: 'konio://',
+                universal: 'https://wallet.konio.io'
+              }
+            }
+          ]
+        }
       }
     );
 

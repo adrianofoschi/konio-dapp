@@ -31,8 +31,7 @@
           icons: ["https://dapp.konio.io/assets/logo.png"],
         },
         modalOptions: {
-          explorerRecommendedWalletIds: ['de9e8421961e35c5e35cb63e3cd7be9af328a62c7b5a11f95ca116bf128a7424'],
-          enableExplorer: false
+          explorerRecommendedWalletIds: ['de9e8421961e35c5e35cb63e3cd7be9af328a62c7b5a11f95ca116bf128a7424']
         }
       }
     );
@@ -47,7 +46,7 @@
           Methods.WaitForTransaction,
         ]
       );
-      document.getElementById('step1-output').innerHTML = 'accounts: ' + JSON.stringify(accounts);
+      step1_output.innerHTML = 'accounts: ' + JSON.stringify(accounts);
     }
 
     const signAndSend = async () => {
@@ -62,29 +61,42 @@
       // Transfer 0.00000001 Koin
       const { transaction, receipt } = await koin.functions.transfer({
         from: signer.getAddress(),
-        to: document.getElementById('recipient').value,
-        value: window.utils.parseUnits("0.00000001", document.getElementById('amount').value),
+        to: recipient.value,
+        value: window.utils.parseUnits("0.00000001", amount.value),
       });
 
-      document.getElementById('step2-output').innerHTML = 'receipt: ' + JSON.stringify(accounts) + '\n wait for confirmation';
+      step2_output.innerHTML = 'receipt: ' + JSON.stringify(accounts) + '\n wait for confirmation';
       await transaction.wait();
-      document.getElementById('step2-output').innerHTML = 'await: done';
+      step2_output.innerHTML = 'await: done';
     }
 
     const disconnect = async () => {
       await walletConnectKoinos.disconnect();
-      document.getElementById('step3-output').innerHTML = 'disconnected';
+      step1_output.innerHTML = '';
+      step2_output.innerHTML = '';
+      recipient.value = '';
+      amount.value = '';
+      step3_output.innerHTML = 'disconnected';
     }
 
-    document.getElementById('btn-connect').onclick = () => {
+    const step1_output = document.getElementById('step1-output');
+    const step2_output = document.getElementById('step2-output');
+    const step3_output = document.getElementById('step3-output');
+    const btn_connect = document.getElementById('btn-connect');
+    const btn_send = document.getElementById('btn-send');
+    const btn_disconnect = document.getElementById('btn-disconnect');
+    const recipient = document.getElementById('recipient');
+    const amount = document.getElementById('amount');
+
+    btn_connect.onclick = () => {
       connect();
     }
 
-    document.getElementById('btn-send').onclick = () => {
+    btn_send.onclick = () => {
       signAndSend();
     }
 
-    document.getElementById('btn-disconnect').onclick = () => {
+    btn_disconnect.onclick = () => {
       disconnect();
     }
 
@@ -128,8 +140,13 @@
     .output {
       background-color: #eee;
       padding: 10px;
-      font-family: 'Courier New', Courier, monospace;
       border-radius: 15px;
+      overflow: auto;
+    }
+
+    .output, .output > * {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: .9em;
     }
 
     #logo {

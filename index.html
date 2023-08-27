@@ -70,7 +70,7 @@
       });
 
       step2_output.innerHTML = 'receipt: ' + JSON.stringify(accounts) + '\n wait for confirmation (1200000)';
-      await transaction.wait('byTransactionId', 120000);
+      await transaction.wait();
       step2_output.innerHTML = 'await: done';
     }
 

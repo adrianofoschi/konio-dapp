@@ -69,6 +69,8 @@
         value: window.utils.parseUnits("0.00000001", amount.value),
       });
 
+      console.log(transaction, receipt);
+
       step2_output.innerHTML = 'receipt: ' + JSON.stringify(accounts) + '\n wait for confirmation';
       await transaction.wait();
       step2_output.innerHTML = 'await: done';
